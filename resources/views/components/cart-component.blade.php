@@ -1,13 +1,16 @@
+@php
+    $cartItems = session('cart', []);
+@endphp
 <div>
     <div class="cart-items">
         <a href="javascript:void(0)" class="main-btn">
             <i class="lni lni-cart"></i>
-            <span class="total-items">2</span>
+            <span class="total-items">{{ count($cartItems) }}</span>
         </a>
         <!-- Shopping Item -->
         <div class="shopping-item">
             <div class="dropdown-cart-header">
-                <span>2 Items</span>
+                <span>{{ count($cartItems) }} Items</span>
                 <a href="cart.html">View Cart</a>
             </div>
             <ul class="shopping-list">

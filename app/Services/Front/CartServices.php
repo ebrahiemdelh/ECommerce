@@ -13,18 +13,16 @@ class CartServices
         $this->cart = self::getOrCreateCart();
     }
     public static function getOrCreateCart() {
-        $cart_id = session()->get('cart_id');
-        if(!$cart_id){
+        $cart = session()->get('cart');
+        if(!$cart){
             $cart = Cart::create(
                 [
                     'user_id' => Auth::id() ?? 1,
                 ]
             );
-            session()->put('cart_id',$cart->id);
-            return $cart;
-        }else{
-            return Cart::find($cart_id);
+            session()->put('cart',$cart);
         }
+            return $cart;
     }
 
     public static function addOrUpdateCartItem($product_id, $quantity = 1) {
@@ -39,6 +37,7 @@ class CartServices
                 'quantity' => $quantity,
             ]);
         }
+        session()->put('cart',$cart);
         return $cart->load('cartItems.product');
     }
 
