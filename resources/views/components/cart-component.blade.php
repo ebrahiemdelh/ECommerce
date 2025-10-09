@@ -1,5 +1,6 @@
 @php
-    $cartItems = session('cart', []);
+    $cart = app(App\Repositories\Cart\CartRepository::class);
+    $cartItems = $cart->get();
 @endphp
 <div>
     <div class="cart-items">
@@ -11,27 +12,27 @@
         <div class="shopping-item">
             <div class="dropdown-cart-header">
                 <span>{{ count($cartItems) }} Items</span>
-                <a href="cart.html">View Cart</a>
+                <a href="{{ route('front.cart.index') }}">View Cart</a>
             </div>
             <ul class="shopping-list">
-                @foreach ($cartItems as $item)
-                <li>
-                    <a href="javascript:void(0)" class="remove" title="Remove this item"><i
-                            class="lni lni-close"></i></a>
-                    <div class="cart-img-head">
-                        <a class="cart-img" href="{{ route('front.product.details', $item->id) }}"><img
-                                src="{{ asset('front/assets/images/header/cart-items/item1.jpg') }}" alt="#" /></a>
-                    </div>
-                    <div class="content">
-                        <h4>
-                            <a href="{{ route('front.product.details', $item->id) }}">
-                                {{ $item->name }}</a>
-                        </h4>
-                        <p class="quantity">
-                            {{ $item->quantity }}x - <span class="amount">${{ $item->price }}</span>
-                        </p>
-                    </div>
-                </li>
+                @foreach ($cartItems as $id => $item)
+                    <li>
+                        <a href="javascript:void(0)" class="remove" title="Remove this item"><i
+                                class="lni lni-close"></i></a>
+                        <div class="cart-img-head">
+                            <a class="cart-img" href="{{ route('front.products.show', $item->id) }}"><img
+                                    src="{{ asset(json_decode($item->product->images)[0]) }}" alt="#" /></a>
+                        </div>
+                        <div class="content">
+                            <h4>
+                                <a href="{{ route('front.products.show', $item->id) }}">
+                                    {{ $item->product->name }}</a>
+                            </h4>
+                            <p class="quantity">
+                                {{ $item->quantity }}x - <span class="amount">${{ $item->product->price }}</span>
+                            </p>
+                        </div>
+                    </li>
                 @endforeach
             </ul>
             <div class="bottom">
@@ -40,7 +41,7 @@
                     <span class="total-amount">$134.00</span>
                 </div>
                 <div class="button">
-                    <a href="checkout.html" class="btn animate">Checkout</a>
+                    <a href="{{route('front.checkout.index')}}" class="btn animate">Checkout</a>
                 </div>
             </div>
         </div>

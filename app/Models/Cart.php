@@ -10,7 +10,12 @@ class Cart extends Model
 {
     use HasUuids;
     protected $fillable = [
+        'cookie_id',
         'user_id',
+        'product_id',
+        'quantity',
+        'price',
+        'options',
     ];
 
     // Mutators
@@ -19,14 +24,12 @@ class Cart extends Model
     // Relationships
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault([
+            'name' => 'Guest',
+        ]);
     }
-    public function cartItems()
+    public function product()
     {
-        return $this->hasMany(CartItem::class);
-    }
-    public function products()
-    {
-        return $this->hasManyThrough(Product::class, CartItem::class);
+        return $this->belongsTo(Product::class);
     }
 }

@@ -1,4 +1,4 @@
-@extends('front.layout.master')
+@extends('front.layout.master', ['title' => 'Home Page'])
 
 @section('title', 'Home Page')
 
@@ -11,8 +11,9 @@
                         <!-- Start Hero Slider -->
                         <div class="hero-slider">
                             <!-- Start Single Slider -->
-                            <div class="single-slider" style="
-                                background-image: url('{{ asset('front/assets/images/hero/slider-bg1.jpg') }}');">
+                            <div class="single-slider"
+                                style="
+                                                background-image: url('{{ asset('front/assets/images/hero/slider-bg1.jpg') }}');">
                                 <div class="content">
                                     <h2>
                                         <span>No restocking fee ($35 savings)</span>
@@ -31,8 +32,9 @@
                             </div>
                             <!-- End Single Slider -->
                             <!-- Start Single Slider -->
-                            <div class="single-slider" style="
-                                background-image: url('{{ asset('front/assets/images/hero/slider-bg2.jpg') }}');">
+                            <div class="single-slider"
+                                style="
+                                                background-image: url('{{ asset('front/assets/images/hero/slider-bg2.jpg') }}');">
                                 <div class="content">
                                     <h2>
                                         <span>Big Sale Offer</span>
@@ -58,9 +60,9 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-6 col-12 md-custom-padding">
                             <!-- Start Small Banner -->
-                            <div class="hero-small-banner" style="
-                                background-image: url('{{ asset('front/assets/images/hero/slider-bnr.jpg') }}');
-                              ">
+                            <div class="hero-small-banner"
+                                style="
+                                                background-image: url('{{ asset('front/assets/images/hero/slider-bnr.jpg') }}');">
                                 <div class="content">
                                     <h2>
                                         <span>New line required</span>
@@ -108,42 +110,46 @@
                 </div>
             </div>
             <div class="row">
-                @foreach ($products  as $product)
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="{{ asset('front/assets/images/products/product-1.jpg') }}" alt="#" />
-                            {{-- <span class="sale-tag">-25%</span> --}}
-                            {{-- <span class="new-tag">New</span> --}}
-                            <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                @foreach ($products as $product)
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <!-- Start Single Product -->
+                        <div class="single-product">
+                            <div class="product-image">
+                                <img src="{{ json_decode($product->images)[0] }}" alt="#" />
+                                {{-- <span class="sale-tag">-25%</span> --}}
+                                {{-- <span class="new-tag">New</span> --}}
+                                <div class="button">
+                                    <form action="{{route('front.cart.store', ['product_id'=>$product->id])}}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn"><i class="lni lni-cart"></i> Add to Cart</button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">{{$product->category->name}}</span>
-                            <h4 class="title">
-                                <a href="{{route('front.products.show', $product)}}">{{$product->name}}</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star"></i></li>
-                                <li><span>{{$product->rating_No}} Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>${{$product->price}}</span>
+                            <div class="product-info">
+                                <h4 class="title">
+                                    <a
+                                        href="{{route('front.products.show', $product)}}">{{$product->name}}</a>
+                                </h4>
+                                <span class="category">{{$product->category->name}}</span>
+                                <ul class="review">
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star-half-stroke"></i></li>
+                                    <li><i class="far fa-star"></i></li>
+                                    <li><span>{{$product->rating_No}} Review(s)</span></li>
+                                </ul>
+                                <div class="price">
+                                    @if($product->discount_price)
+                                        <span>${{ $product->discount_price }}</span>
+                                        <span class="discount-price">${{ $product->price }}</span>
+                                    @else
+                                        <span>${{ $product->price }}</span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                    @endforeach
-                    <!-- End Single Product -->
+                @endforeach
+                <!-- End Single Product -->
             </div>
         </div>
     </section>
@@ -181,8 +187,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-12">
-                    <div class="single-banner" style="
-                            background-image: url('{{ asset('front/assets/images/banner/banner-1-bg.jpg') }}');">
+                    <div class="single-banner"
+                        style="
+                                            background-image: url('{{ asset('front/assets/images/banner/banner-1-bg.jpg') }}');">
                         <div class="content">
                             <h2>Smart Watch 2.0</h2>
                             <p>
@@ -195,8 +202,9 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
-                    <div class="single-banner custom-responsive-margin" style="
-                            background-image: url('{{ asset('front/assets/images/banner/banner-2-bg.jpg') }}');">
+                    <div class="single-banner custom-responsive-margin"
+                        style="
+                                            background-image: url('{{ asset('front/assets/images/banner/banner-2-bg.jpg') }}');">
                         <div class="content">
                             <h2>Smart Headphone</h2>
                             <p>

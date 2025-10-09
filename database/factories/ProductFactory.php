@@ -25,7 +25,7 @@ class ProductFactory extends Factory
             'price' => fake()->randomFloat(2, 10, 500),
             'stock' => fake()->numberBetween(0, 100),
             'rating' => fake()->randomFloat(1, 1, 5),
-            'images' => json_encode([fake()->imageUrl(), fake()->imageUrl()]),
+            'images' => json_encode(["https://picsum.photos/id/".fake()->numberBetween(0,1000)."/200/300","https://picsum.photos/id/".fake()->numberBetween(0,1000)."/640/400"]),
             'rating_No' => fake()->numberBetween(1, 1000),
         ];
     }

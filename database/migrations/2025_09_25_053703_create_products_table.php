@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
+            $table->decimal('discount_price', 10, 2)->nullable();
             $table->integer('stock')->default(0);
             $table->json('images')->nullable();
             $table->float('rating', 2)->default(0);

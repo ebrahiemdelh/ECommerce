@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-12">
-                        <form action="{{route('front.cart.store', $product)}}" method="post">
+                        <form action="{{route('front.cart.store', ["product_id" => $product->id])}}" method="post">
                             @csrf
                             <div class="product-info">
                                 <h2 class="title">{{$product->name}}</h2>

@@ -1,7 +1,5 @@
-@extends('front.layout.master')
-@section('title', 'Register')
+@extends('front.layout.master', ['title' => 'Register', 'auth' => true])
 @section('content')
-    <x-front.breadcrumb title="Register" />
     <div class="account-login section">
         <div class="container">
             <div class="row">

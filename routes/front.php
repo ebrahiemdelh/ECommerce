@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\Front\{ProductController, CategoryController, HomeController, UserController,CartController};
-use App\Http\Controllers\Front\AuthController;
+use App\Http\Controllers\Front\{ProductController, CategoryController, HomeController, UserController,CartController,CheckoutController,AuthController};
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
@@ -18,14 +17,13 @@ Route::group(
         Route::post('/login', [AuthController::class, 'login'])->name('login');
         Route::post('/register', [AuthController::class, 'register'])->name('register');
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-        Route::post('/cart/store/{product}', [CartController::class, 'store'])->name('cart.store');
-
+        Route::resource('/cart', CartController::class)->except(['create','show','edit']);
         Route::resources(
             [
                 'products' => ProductController::class,
                 'categories' => CategoryController::class,
                 'user' => UserController::class,
+                'checkout' => CheckoutController::class,
             ]
         );
     }

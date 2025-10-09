@@ -4,5 +4,6 @@
 <link rel="stylesheet" href="{{ asset('front/assets/css/tiny-slider.css') }}" />
 <link rel="stylesheet" href="{{ asset('front/assets/css/glightbox.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('front/assets/css/main.css') }}" />
+<link rel="stylesheet" href="{{ asset('front/assets/css/all.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('vendor/flasher/flasher.min.css') }}">
 @stack('css')

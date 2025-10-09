@@ -3,6 +3,7 @@
 <script src="{{ asset('front/assets/js/tiny-slider.js') }}"></script>
 <script src="{{ asset('front/assets/js/glightbox.min.js') }}"></script>
 <script src="{{ asset('front/assets/js/main.js') }}"></script>
+<script src="{{ asset('front/assets/js/all.min.js') }}"></script>
 <script type="text/javascript">
     //========= Hero Slider
     tns({

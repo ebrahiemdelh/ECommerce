@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Front\LoginRequest;
 use App\Http\Requests\Front\RegisterRequest;
 use App\Models\User;
+use App\Services\Front\CartServices;
 use Flasher\Laravel\Facade\Flasher;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -19,6 +20,8 @@ class AuthController extends Controller
         $credits = $request->validated();
         if (Auth::attempt($credits)) {
             $request->session()->regenerate();
+            
+            Flasher::info('Logged in Successfully', title: 'Info');
             return redirect()->intended('/');
         } else {
             Flasher::error('Wrong Email Or Password', title: 'Invalid Credentials');
