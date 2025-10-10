@@ -29,7 +29,7 @@
                                     {{ $item->product->name }}</a>
                             </h4>
                             <p class="quantity">
-                                {{ $item->quantity }}x - <span class="amount">${{ $item->product->price }}</span>
+                                {{ $item->quantity }}x - <span class="amount">${{ $item->product->discount_price ?? $item->product->price }}</span>
                             </p>
                         </div>
                     </li>
@@ -38,7 +38,7 @@
             <div class="bottom">
                 <div class="total">
                     <span>Total</span>
-                    <span class="total-amount">$134.00</span>
+                    <span class="total-amount">${{ $cart->total() }}</span>
                 </div>
                 <div class="button">
                     <a href="{{route('front.checkout.index')}}" class="btn animate">Checkout</a>

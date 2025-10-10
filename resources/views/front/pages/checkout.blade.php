@@ -86,18 +86,18 @@
                                     <p class="price">${{$cart->total()}}</p>
                                 </div>
                                 <div class="total-price shipping">
-                                    <p class="value">Subotal Price:</p>
+                                    <p class="value">Shipping Price:</p>
                                     <p class="price">$10.50</p>
                                 </div>
                                 <div class="total-price discount">
-                                    <p class="value">Subotal Price:</p>
-                                    <p class="price">$10.00</p>
+                                    <p class="value">Saved:</p>
+                                    <p class="price">${{ $cart->saved() }}</p>
                                 </div>
                             </div>
                             <div class="total-payable">
                                 <div class="payable-price">
                                     <p class="value">Subotal Price:</p>
-                                    <p class="price">${{$cart->total() + 10.50 - 10.00}}</p>
+                                    <p class="price">${{$cart->total() + 10.50 - $cart->saved()}}</p>
                                 </div>
                             </div>
                             <div class="price-table-btn button">

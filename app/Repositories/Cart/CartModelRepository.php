@@ -19,12 +19,19 @@ class CartModelRepository implements CartRepository
 
     public function add(Product $product, $quantity = 1)
     {
+        $item = Cart::where('cookie_id', $this->getCookieId())
+            ->where('product_id', $product->id)
+            ->first();
+        if ($item) {
+            $item->quantity += $quantity;
+            $item->save();
+            return $item;
+        }
         return Cart::create([
             'cookie_id' => $this->getCookieId(),
             'user_id' => Auth::id(),
             'product_id' => $product->id,
             'quantity' => $quantity,
-            'price' => $product->price,
         ]);
     }
 
@@ -56,6 +63,13 @@ class CartModelRepository implements CartRepository
         return (float) Cart::where('cookie_id', $this->getCookieId())
         ->join('products', 'products.id', '=', 'carts.product_id')
         ->selectRaw('SUM(products.price * carts.quantity) as total')
+        ->value('total') ?? 0;
+    }
+    public function saved(): float
+    {
+        return (float) Cart::where('cookie_id', $this->getCookieId())
+        ->join('products', 'products.id', '=', 'carts.product_id')
+        ->selectRaw('SUM((products.price - products.discount_price) * carts.quantity) as total')
         ->value('total') ?? 0;
     }
 

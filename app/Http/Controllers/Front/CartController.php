@@ -36,7 +36,7 @@ class CartController extends Controller
     {
         $valid = $request->validated();
         $product = Product::findOrFail($valid["product_id"]);
-        $this->cart->add($product, $valid->quantity ?? 1);
+        $this->cart->add($product, $valid['quantity'] ?? 1);
         Flasher::info('Product added to cart successfully');
         return redirect()->back();
     }

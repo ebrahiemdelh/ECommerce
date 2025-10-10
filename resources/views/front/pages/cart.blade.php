@@ -29,38 +29,40 @@
                 <!-- End Cart List Title -->
                 <!-- Cart Single List list -->
                 @foreach ($cart->get() as $item)
-            <form action="{{ route('front.cart.update', ['product_id'=>$item->id, 'cart'=>$item]) }}" method="POST">
-            @csrf
-                <div class="cart-single-list">
-                    <div class="row align-items-center">
-                        <div class="col-lg-1 col-md-1 col-12">
-                            <a href="{{route('front.products.show',$item->product->id)}}"><img src="{{url(json_decode($item->product->images)[0])}}" alt="#"></a>
-                        </div>
-                        <div class="col-lg-4 col-md-3 col-12">
-                            <h5 class="product-name"><a href="{{route('front.products.show',$item->product->id)}}">
-                                    {{ $item->product->name }}</a></h5>
-                            <p class="product-des">
-                                <span><em>Category:</em> {{ $item->product->category->name }}</span>
-                                {{-- <span><em>Color:</em> {{ $item->color }}</span> --}}
-                            </p>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-12">
-                            <div class="count-input">
-                                <input class="form-control" value="{{$item->quantity}}" type="number" min="1" name="quantity" />
+                    <form action="{{ route('front.cart.update', ['product_id' => $item->id, 'cart' => $item]) }}" method="POST">
+                        @csrf
+                        <div class="cart-single-list">
+                            <div class="row align-items-center">
+                                <div class="col-lg-1 col-md-1 col-12">
+                                    <a href="{{route('front.products.show', $item->product->id)}}"><img
+                                            src="{{url(json_decode($item->product->images)[0])}}" alt="#"></a>
+                                </div>
+                                <div class="col-lg-4 col-md-3 col-12">
+                                    <h5 class="product-name"><a href="{{route('front.products.show', $item->product->id)}}">
+                                            {{ $item->product->name }}</a></h5>
+                                    <p class="product-des">
+                                        <span><em>Category:</em> {{ $item->product->category->name }}</span>
+                                        {{-- <span><em>Color:</em> {{ $item->color }}</span> --}}
+                                    </p>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-12">
+                                    <div class="count-input">
+                                        <input class="form-control" value="{{$item->quantity}}" type="number" min="1"
+                                            name="quantity" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-12">
+                                    <p>${{ number_format($item->product->price * $item->quantity, 2) }}</p>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-12">
+                                    <p>${{ number_format($item->product->discount_price * $item->quantity, 2) ?? 0 }}</p>
+                                </div>
+                                <div class="col-lg-1 col-md-2 col-12">
+                                    <a class="remove-item" href="javascript:void(0)"><i class="lni lni-close"></i></a>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-12">
-                            <p>${{ number_format($item->product->price * $item->quantity, 2) }}</p>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-12">
-                            <p>${{ number_format($item->product->price * $item->quantity * 0.1, 2) }}</p>
-                        </div>
-                        <div class="col-lg-1 col-md-2 col-12">
-                            <a class="remove-item" href="javascript:void(0)"><i class="lni lni-close"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </form>
+                    </form>
                 @endforeach
                 <!-- End Single List list -->
             </div>
@@ -86,8 +88,8 @@
                                     <ul>
                                         <li>Cart Subtotal<span>${{$cart->total()}}</span></li>
                                         <li>Shipping<span>Free</span></li>
-                                        <li>You Save<span>$29.00</span></li>
-                                        <li class="last">You Pay<span>$2531.00</span></li>
+                                        <li>You Save<span>${{ $cart->saved() }}</span></li>
+                                        <li class="last">You Pay<span>${{$cart->total() - $cart->saved()}}</span></li>
                                     </ul>
                                     <div class="button">
                                         <a href="{{ route('front.checkout.index') }}" class="btn">Checkout</a>

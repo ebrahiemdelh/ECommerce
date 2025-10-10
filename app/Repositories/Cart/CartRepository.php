@@ -13,4 +13,5 @@ interface CartRepository
     public function delete($id);
     public function empty();
     public function total(): float;
+    public function saved(): float;
 }

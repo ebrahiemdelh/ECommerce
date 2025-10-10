@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->unsignedSmallInteger('quantity')->default(1);
-            $table->float('price', 10);
             $table->json('options')->nullable();
             $table->timestamps();
         });
