@@ -46,10 +46,10 @@ class CheckoutController extends Controller
         DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            Flasher::error('There was an error processing your order. Please try again.');
+            Flasher::error(__('words.There was an error processing your order. Please try again.'));
             return redirect()->back();
         }
-        Flasher::success('Order placed successfully');
+        Flasher::success(__('words.Order placed successfully'));
         $cart->empty();
         return redirect()->route('front.home');
     }

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductRequest;
 use App\Models\{Product, Category, Store};
 use Flasher\Laravel\Facade\Flasher;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -45,7 +44,7 @@ class ProductController extends Controller
             $validated['images'] = $imagePaths;
         }
         Product::create($validated);
-        Flasher::success('Product created successfully.', title: 'Product Created');
+        Flasher::success(__('words.created', ['name' => __('words.Product')]), title: __('words.title_created', ['name' => __('words.Product')]));
         return redirect()->route('admin.products.index');
     }
 
@@ -82,7 +81,7 @@ class ProductController extends Controller
             $validated['images'] = $imagePaths;
         }
         $product->update($validated);
-        Flasher::success('Product updated successfully.', title: 'Product Updated');
+        Flasher::success(__('words.updated', ['name' => __('words.Product')]), title: __('words.title_updated', ['name' => __('words.Product')]));
         return redirect()->route('admin.products.index');
     }
 
@@ -95,7 +94,7 @@ class ProductController extends Controller
             Storage::disk("products/{$product->id}_{$product->name}")->delete($image);
         }
         $product->delete();
-        Flasher::info('Product deleted successfully.', title: 'Product Deleted');
+        Flasher::info(__('words.deleted', ['name' => __('words.Product')]), title: __('words.title_deleted', ['name' => __('words.Product')]));
         return redirect()->route('admin.products.index');
     }
 }

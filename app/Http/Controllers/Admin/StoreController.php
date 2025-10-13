@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreRequest;
 use App\Models\{Store,Vendor};
 use Flasher\Laravel\Facade\Flasher;
-use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
@@ -36,7 +35,7 @@ class StoreController extends Controller
         $validated = $request->validated();
         Store::create($validated);
         // You can use a flash message package or session to show success messages
-        Flasher::success( 'Store created successfully.',title:'Store Created');
+        Flasher::success( __('words.created', ['name' => __('words.Store')]), title: __('words.title_created', ['name' => __('words.Store')]));
         return redirect()->route('admin.stores.index');
     }
 
@@ -64,7 +63,7 @@ class StoreController extends Controller
     {
         $validated = $request->validated();
         $store->update($validated);
-        Flasher::success( 'Store updated successfully.',title:'Store Updated');
+        Flasher::success( __('words.updated', ['name' => __('words.Store')]), title: __('words.title_updated', ['name' => __('words.Store')]));
         return redirect()->route('admin.stores.index');
     }
 
@@ -74,7 +73,7 @@ class StoreController extends Controller
     public function destroy(Store $store)
     {
         $store->delete();
-        Flasher::info( 'Store deleted successfully.',title:'Store Deleted');
+        Flasher::info( __('words.deleted', ['name' => __('words.Store')]), title: __('words.title_deleted', ['name' => __('words.Store')]));
         return redirect()->route('admin.stores.index');
     }
 }

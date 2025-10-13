@@ -1,3 +1,6 @@
+@php
+$categories = \App\Models\Category::take(10)->get();
+@endphp
 <header class="header navbar-area">
     <!-- Start Topbar -->
     <div class="topbar">
@@ -20,14 +23,13 @@
                             </li>
                             <li>
                                 <div class="select-position">
-                                    <select id="select5">
-                                        <option value="0" selected>English</option>
-                                        <option value="1">Español</option>
-                                        <option value="2">Filipino</option>
-                                        <option value="3">Français</option>
-                                        <option value="4">العربية</option>
-                                        <option value="5">हिन्दी</option>
-                                        <option value="6">বাংলা</option>
+                                    <select id="select5" onchange="location = this.value;">
+                                        @foreach (Mcamara\LaravelLocalization\Facades\LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                            <option value="{{ $localeCode }}"
+                                                {{ app()->getLocale() == $localeCode ? 'selected' : '' }}>
+                                                {{ $properties['native'] }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </li>
@@ -147,7 +149,7 @@
                     <div class="mega-category-menu">
                         <span class="cat-button"><i class="lni lni-menu"></i>All Categories</span>
                         <ul class="sub-category">
-                            <li>
+                            {{-- <li>
                                 <a href="product-grids.html">Electronics <i class="lni lni-chevron-right"></i></a>
                                 <ul class="inner-sub-category">
                                     <li><a href="product-grids.html">Digital Cameras</a></li>
@@ -163,18 +165,11 @@
                                         <a href="product-grids.html">Cables & Adapters</a>
                                     </li>
                                 </ul>
-                            </li>
-                            <li><a href="product-grids.html">accessories</a></li>
-                            <li><a href="product-grids.html">Televisions</a></li>
-                            <li><a href="product-grids.html">best selling</a></li>
-                            <li><a href="product-grids.html">top 100 offer</a></li>
-                            <li><a href="product-grids.html">sunglass</a></li>
-                            <li><a href="product-grids.html">watch</a></li>
-                            <li><a href="product-grids.html">man’s product</a></li>
-                            <li><a href="product-grids.html">Home Audio & Theater</a></li>
-                            <li><a href="product-grids.html">Computers & Tablets </a></li>
-                            <li><a href="product-grids.html">Video Games </a></li>
-                            <li><a href="product-grids.html">Home Appliances </a></li>
+                            </li> --}}
+                            @foreach ($categories as $category )
+                            <li><a href="product-grids.html">{{ $category->name }}</a></li>
+                            @endforeach
+                            <li><a href="product-grids.html" style="color: rgb(1, 103, 243);">More Categories</a></li>
                         </ul>
                     </div>
                     <!-- End Mega Category Menu -->

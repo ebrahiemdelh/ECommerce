@@ -4,13 +4,9 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CartRequest;
-use App\Models\Cart;
 use App\Models\Product;
-use App\Repositories\Cart\CartModelRepository;
 use App\Repositories\Cart\CartRepository;
 use Flasher\Laravel\Facade\Flasher;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
 class CartController extends Controller
 {
@@ -37,7 +33,7 @@ class CartController extends Controller
         $valid = $request->validated();
         $product = Product::findOrFail($valid["product_id"]);
         $this->cart->add($product, $valid['quantity'] ?? 1);
-        Flasher::info('Product added to cart successfully');
+        Flasher::info(__('words.Product added cart'));
         return redirect()->back();
     }
 

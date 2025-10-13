@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryRequest;
 use App\Models\{Category};
 use Flasher\Laravel\Facade\Flasher;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -34,7 +33,7 @@ class CategoryController extends Controller
     {
         $validated = $request->validated();
         Category::create($validated);
-        Flasher::success( 'Category created successfully.',title:'Category Created');
+        Flasher::success( __('words.created', ['name' => __('words.Category')]), title: __('words.title_created', ['name' => __('words.Category')]));
         return redirect()->route('admin.categories.index');
     }
 
@@ -61,7 +60,7 @@ class CategoryController extends Controller
     {
         $validated = $request->validated();
         $category->update($validated);
-        Flasher::success( 'Category updated successfully.', title: 'Category Updated');
+        Flasher::success( __('words.updated', ['name' => __('words.Category')]), title: __('words.title_updated', ['name' => __('words.Category')]));
         return redirect()->route('admin.categories.index');
     }
 
@@ -71,7 +70,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        Flasher::info( 'Category deleted successfully.', title: 'Category Deleted');
+        Flasher::info( __('words.deleted', ['name' => __('words.Category')]), title: __('words.title_deleted', ['name' => __('words.Category')]));
         return redirect()->route('admin.categories.index');
     }
 }

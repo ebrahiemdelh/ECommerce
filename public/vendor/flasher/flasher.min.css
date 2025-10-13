@@ -90,6 +90,7 @@
 }
 .fl-container.fl-rtl {
     direction: rtl;
+    text-align: start;
 }
 .fl-icon {
     border-radius: 50%;
