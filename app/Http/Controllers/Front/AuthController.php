@@ -18,10 +18,10 @@ class AuthController extends Controller
         if (Auth::attempt($credits)) {
             $request->session()->regenerate();
 
-            Flasher::info(__('auth.Logged in Successfully'), title: __('auth.Logged In'));
+            Flasher::info(__('auth.Logged in'), title: __('auth.Logged In'));
             return redirect()->intended('/');
         } else {
-            Flasher::error(__('auth.Wrong Email Or Password'), title: __('auth.Invalid Credentials'));
+            Flasher::error(__('auth.Wrong'), title: __('auth.Invalid Credentials'));
             return redirect()->back();
         }
     }
@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         $user = User::create($validated);
         $request->session()->regenerate();
-        Flasher::info(__('auth.Account Created Successfully'), title: __('auth.Registered'));
+        Flasher::info(__('words.created', ['name' => __('words.Account')]), title: __('auth.Registered'));
         return redirect()->intended('/');
     }
 

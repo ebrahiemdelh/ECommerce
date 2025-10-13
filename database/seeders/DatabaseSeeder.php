@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\{User, Vendor, Store, Product, Category};
+use App\Models\{Admin, User, Vendor, Store, Product, Category};
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
                 $store->products()->saveMany(Product::factory(rand(5, 20))->make());
             });
         });
+        Admin::factory(10)->create();
     }
 }

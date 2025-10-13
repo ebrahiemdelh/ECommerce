@@ -1,5 +1,9 @@
 <?php
 return [
+    'Admin'=>'Administrateur',
+    'Admins'=>'Administrateurs',
+    'Account'=>'Compte',
+    'Accounts'=>'Comptes',
     'Category'=>'Catégorie',
     'Categories'=>'Catégories',
     'Product'=>'Produit',

@@ -1,5 +1,9 @@
 <?php
 return [
+    'Admin'=>'مدير',
+    'Admins'=>'مدراء',
+    'Account'=>'حساب',
+    'Accounts'=>'حسابات',
     'Category'=>'قسم',
     'Categories'=>'أقسام',
     'Product'=>'منتج',
